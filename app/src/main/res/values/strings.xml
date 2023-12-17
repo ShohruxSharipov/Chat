@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Chat</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_contacs">Contacs</string>
+    <string name="title_activity_contacts">ContactsActivity</string>
+    <string name="title_activity_sign_in">SignIn</string>
+</resources>
