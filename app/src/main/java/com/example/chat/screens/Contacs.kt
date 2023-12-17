@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,6 +23,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
@@ -57,6 +59,7 @@ import com.example.chat.screens.ui.theme.ChatTheme
 import com.example.chat.theme.Purple40
 import com.example.chat.theme.blue
 import com.example.chat.theme.greeen
+import com.example.chat.theme.grey
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -111,9 +114,18 @@ class Contacs : ComponentActivity() {
             Column(){
                 CenterAlignedTopAppBar(
                     title = { Text(text = "Contacts", color = Color.White, fontWeight = FontWeight.Bold) },
-                    colors = TopAppBarDefaults.centerAlignedTopAppBarColors(containerColor = Purple40),
-                    navigationIcon = { Icon(imageVector = Icons.Default.Menu, contentDescription = null, tint = Color.White, modifier = Modifier.padding(10.dp))},
-                    actions = { Icon(imageVector = Icons.Default.Search, contentDescription = null, tint = Color.White, modifier = Modifier.padding(10.dp))})
+                    colors = TopAppBarDefaults.centerAlignedTopAppBarColors(containerColor = greeen),
+                    navigationIcon = { Icon(imageVector = Icons.Default.Menu, contentDescription = null, tint = Color.White, modifier = Modifier
+                        .padding(10.dp)
+                        .clickable { })},
+                    actions = { Row {
+                        Icon(imageVector = Icons.Default.Search, contentDescription = null, tint = Color.White, modifier = Modifier
+                            .padding(10.dp)
+                            .clickable { })
+                        Icon(imageVector = Icons.Default.Share, contentDescription = null, tint = Color.White, modifier = Modifier
+                            .padding(10.dp)
+                            .clickable { })
+                    }})
                 LazyColumn {
                     items(userList) {
                         Card(
@@ -143,15 +155,16 @@ class Contacs : ComponentActivity() {
                                         .data(R.drawable.img_1)
                                         .crossfade(true)
                                         .build(),
-                                    placeholder = painterResource(R.drawable.img_1),
-                                    contentDescription = ("no image"),
-                                    contentScale = ContentScale.Crop,
                                     modifier = Modifier
                                         .clip(CircleShape)
                                         .height(45.dp)
-                                        .width(45.dp),
-                                    colorFilter = ColorFilter.tint(Color.Cyan)
-                                )
+                                        .width(45.dp)
+                                        .border(width = 2.dp, color = greeen, shape = CircleShape),
+                                    placeholder = painterResource(R.drawable.img_1),
+                                    contentDescription = ("no image"),
+                                    contentScale = ContentScale.Crop,
+
+                                    colorFilter = ColorFilter.tint(greeen))
                                 Column {
                                     Text(
                                         text = it.username ?: "",
@@ -167,6 +180,10 @@ class Contacs : ComponentActivity() {
                                         fontFamily = FontFamily.Cursive,
                                         color = Color.Gray
                                     )
+                                }
+                                Column (modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.End ){
+                                    Spacer(modifier = Modifier.height(20.dp))
+                                    Text(text = "16:52", color = grey)
                                 }
 
                             }
